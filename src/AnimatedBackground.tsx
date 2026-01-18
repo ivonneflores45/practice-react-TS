@@ -42,8 +42,8 @@ export default function BackgroundAnimation(){
           transition={{
             duration: 30 + i * 8,
             // infinity = resets when i click on the cat
-            // repeat: Infinity,
-            repeatType: "loop",
+            repeat: Infinity,
+            // repeatType: "loop",
             ease: "easeInOut",
             delay: i * .3,
           }}
@@ -71,8 +71,8 @@ export default function BackgroundAnimation(){
           }}
           transition={{
             duration: s.duration,
-            // repeat: Infinity,
-            repeatType:"loop",
+            repeat: Infinity,
+            // repeatType: "loop",
             ease:"easeInOut",
           }}
           >
@@ -101,8 +101,8 @@ export default function BackgroundAnimation(){
           }}
           transition={{
             duration: 5 * i + 2,
-            // repeat: Infinity,
-            repeatType:"loop",
+            repeat: Infinity,
+            // repeatType: "loop",
             ease:"easeInOut",
             delay: i * 0.3,
           }}
