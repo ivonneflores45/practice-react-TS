@@ -2,6 +2,7 @@ import './App.css'
 import BackgroundAnimation from './AnimatedBackground'
 import {motion} from "framer-motion"
 import {useState} from "react"
+import Chat from './chatbot frontend/chatbot-frontend'
 
 function App() {
   const [rotation, setRotation] = useState(0)
@@ -28,7 +29,7 @@ function App() {
               transition={{ duration:0.5, ease:"easeInOut" }}
             />
             <h1>woaw.....</h1>
-
+            <Chat/>
         </div>
     </>
   )
