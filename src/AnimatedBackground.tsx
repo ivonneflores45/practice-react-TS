@@ -49,8 +49,10 @@ export default function BackgroundAnimation(){
           }}
         />
       ))}
-      {/*      SVG?    */}
-      {svgShapes.map((s, i) =>(
+      {/*      SVG icons    */}
+      {svgShapes.map((s, i) => {
+        const IconComponent = s.Icon;
+        return(
         <motion.div
           key={`s-${i}`}
           style={{
@@ -74,11 +76,12 @@ export default function BackgroundAnimation(){
             repeat: Infinity,
             // repeatType: "loop",
             ease:"easeInOut",
+            delay: i * 0.4,
           }}
           >
-            <s.Shape/>
-          </motion.div>
-      ))}
+            <IconComponent size={s.size} color={s.color}/>
+          </motion.div>);
+      })}
 
       {dots.map((dot,i)=> (
         <motion.div
