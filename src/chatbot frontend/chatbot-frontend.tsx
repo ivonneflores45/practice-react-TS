@@ -21,10 +21,7 @@ export default function Chat(){
     // quickreplies
     const [inputValue, setInputValue] = useState("");
 
-    // const toggleOpenChat= () =>{
-    //     setOpenWebChat(!isOpenWebChat)
-    // }
-
+    // time + timestamps
     const formatTime = (date:Date) => {
         return date.toLocaleTimeString('en-US',
             {
@@ -34,7 +31,6 @@ export default function Chat(){
             }
         )
     }
-
     const getGreeting= () =>{
         const hour = new Date().getHours();
 
@@ -50,7 +46,7 @@ export default function Chat(){
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
-    // useEffect to implement
+    // useEffect to implement this ^
 
     
     // quickreplies button handlr
@@ -59,7 +55,18 @@ export default function Chat(){
         inputRef.current?.focus();
     }
 
-
+    // disable scrolling in chatbot when on mobile
+    useEffect(() => {
+       if (isOpenWebChat) {
+           document.body.style.overflow = 'hidden';
+       } else {
+           document.body.style.overflow = 'unset';
+       }
+       
+       return () => {
+           document.body.style.overflow = 'unset';
+       };
+    }, [isOpenWebChat]);
 
     return(
         <>
