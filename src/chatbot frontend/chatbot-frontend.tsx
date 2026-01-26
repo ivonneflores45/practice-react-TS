@@ -6,20 +6,36 @@ import { MdOutlineClose } from "react-icons/md";
 import { LuSend } from "react-icons/lu";
 
 
-// need scrolldown effect when message is sent
-interface MessagesType{
-    id: number;
-    text:string;
-    sender:string;
-    timestamp: Date;
-}
+// temporary, seeing how to format msgs (CSS) + scrolling to bottom
+// interface MessagesType{
+//     id: number;
+//     text:string;
+//     sender:string;
+//     timestamp: Date;
+// }
+
 
 export default function Chat(){
 
     const [isOpenWebChat, setOpenWebChat] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
 
     // quickreplies
     const [inputValue, setInputValue] = useState("");
+
+    const handleOpening = () => {
+        setIsClosing(false);
+        setOpenWebChat(true);
+    }
+    const handleClosing = () => {
+        setIsClosing(true);
+        setTimeout(() =>{
+            setOpenWebChat(false);
+            setIsClosing(false)
+        }, 300)
+    }
+
+
 
     // time + timestamps
     const formatTime = (date:Date) => {
@@ -31,6 +47,7 @@ export default function Chat(){
             }
         )
     }
+
     const getGreeting= () =>{
         const hour = new Date().getHours();
 
@@ -42,12 +59,14 @@ export default function Chat(){
     const inputRef = useRef<HTMLInputElement>(null);
 
     // scrolls down when new messages are sent
-    const messagesEndRef = useRef<HTMLDivElement>(null);
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
+    // const messagesEndRef = useRef<HTMLDivElement>(null);
+    // const scrollToBottom = () => {
+    //     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // };
     // useEffect to implement this ^
-
+    // useEffect(() =>{
+    //     scrollToBottom();
+    // }, [messages]);
     
     // quickreplies button handlr
     const handleQuickreply = (text:string) =>{
@@ -73,7 +92,7 @@ export default function Chat(){
         {/*open chat button */}
         {!isOpenWebChat && (
             <button
-                onClick={() => setOpenWebChat(true)}
+                onClick={handleOpening}
                 className={styles.toggleButton}
             >
                 <HiOutlineSparkles size={30}/>
@@ -82,7 +101,7 @@ export default function Chat(){
         
         {/* actual chat window */}
         {isOpenWebChat && (
-            <div className={styles.chatWindow}>
+            <div className={`${styles.chatWindow} ${isClosing ? styles.chatWindowClose : styles.chatWindowOpen}`}>
                 {/* header */}
                 <div className={styles.chatHeader}>
                     <div className={styles.headerContent}>
@@ -95,7 +114,7 @@ export default function Chat(){
                     </div>
                     <button 
                         className={styles.closeChatButton}
-                        onClick={() => setOpenWebChat(false)}
+                        onClick={handleClosing}
                         >
                             <MdOutlineClose size={20}/>
                     </button>
@@ -178,6 +197,5 @@ export default function Chat(){
 
             </div>
         )}
-
         </>
 )}
