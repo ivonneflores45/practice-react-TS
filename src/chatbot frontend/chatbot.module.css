@@ -129,12 +129,100 @@ h2, h3, p{
     color: #ffffff77
 }
 
+.botIconContainer{
+    width:30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-top: 10px;
+    padding-left: 2px;
+}
+
+/* .exampleMsg{
+    display: flex;
+    color:#ffffff;
+    gap: 8px;
+    padding:8px;
+    align-items: flex-start;
+} */
+
+.messageWrapper{
+    display: flex;
+    /* align-items: flex-end; */
+    margin: 8px;
+}
+
+.userWrapper{
+    justify-content: flex-end;
+}
+
+.botWrapper{
+    justify-content: flex-start;
+}
+
+.messageGroup{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    max-width: 65%;
+}
+
+.userWrapper .messageGroup{
+    align-items: flex-end;
+}
+
+.botWrapper .messageGroup{
+    align-items: flex-start;
+}
+
+.messageBubble{
+    padding:10px;
+    width:fit-content;
+    word-wrap: break-word;
+}
+
+.messageBubble p{
+    font-size: 14px;
+}
+
+.messagesBot{
+    background-color: #1f2937;
+    justify-content: flex-start;
+    color:white;
+    border-radius: 4px 18px 18px 18px;
+    text-align: left;
+    width:fit-content;
+    /* max-width: 60%; */
+
+}
+
+.messagesUser{
+    text-align: left;
+    background-color: #f07800;
+    color:white;
+    border-radius: 18px 4px 18px 18px;
+    width:fit-content;
+    /* max-width: 60%; */
+}
+
+.messageTime{
+    display: block;
+    font-size: 12px;
+
+}
+
+.messagesBot .messageTime{
+    justify-content: flex-start;
+}
+
+.messagesUser .messageTime{
+    justify-content: flex-end;
+}
+
 .inputArea{
     border-top: 1px solid #374151;
     padding: 8px 16px;
     border-bottom: 1px solid #374151;
 }
-
 
 .inputWrapper{
     display: flex;
@@ -159,6 +247,7 @@ h2, h3, p{
 
 .sendButton{
     background-color: #f59e0b;
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,7 +255,10 @@ h2, h3, p{
     padding: 8px;
     border:none;
 }
-
+.sendButton:disabled{
+    cursor:not-allowed;
+    opacity: 0.5;
+}
 
 /* quick replies */
 .quickReplies{

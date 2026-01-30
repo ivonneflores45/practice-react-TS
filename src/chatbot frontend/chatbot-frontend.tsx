@@ -7,10 +7,9 @@ import { LuSend } from "react-icons/lu";
 
 
 // temporary, seeing how to format msgs (CSS) + scrolling to bottom
-// interface MessagesType{
-//     id: number;
-//     text:string;
-//     sender:string;
+// interface Message{
+//     sender: 'user' | 'bot';
+//     message:string;
 //     timestamp: Date;
 // }
 
@@ -20,8 +19,80 @@ export default function Chat(){
     const [isOpenWebChat, setOpenWebChat] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
 
+    const [messages, setMessages] = useState([{
+        sender: 'bot',
+        message: 'Hey, welcome to UHD ACM! What are you looking for today?',
+        timestamp: new Date(),
+    }
+    ])
+
+    // CHATBOT PART!
+    // scrolls down when new messages are sent
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+    // useEffect to implement this ^
+    useEffect(() =>{
+        scrollToBottom();
+    }, [messages]);
+
+    // loading bubble
+    const [isLoading, setIsLoading] = useState(false);
+
+    
+    const sendMessage = async(message:string) => {
+        if (!message.trim()) return;
+
+        setMessages(prev => [...prev,{
+            sender: 'user',
+            message:message,
+            timestamp: new Date(),
+        }]);
+
+        setInputValue("");
+
+        try{
+            const response = await fetch("",{
+                method:'POST',
+                headers: {
+                    "whatever":"whatever"
+                },
+                body:JSON.stringify({
+                    message:message,
+                })
+            });
+        
+            const data = await response.json();
+
+            setMessages(prev => [...prev, {
+                sender: 'bot',
+                message: data.response,
+                timestamp: new Date(),
+            }]);
+        } catch (error){
+            setMessages(prev =>[...prev,{
+                sender:'bot',
+                message: "ERROORRRR!!!!",
+                timestamp: new Date(),
+            }])
+        }
+    }
+
+    const handleSendClick = () =>{
+        sendMessage(inputValue);
+    }
+
+    const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter'){
+            e.preventDefault(),
+            sendMessage(inputValue)
+        }
+    }
+
     // quickreplies
     const [inputValue, setInputValue] = useState("");
+    const isButtonDisabled = inputValue.trim() === '';
 
     const handleOpening = () => {
         setIsClosing(false);
@@ -35,8 +106,6 @@ export default function Chat(){
         }, 300)
     }
 
-
-
     // time + timestamps
     const formatTime = (date:Date) => {
         return date.toLocaleTimeString('en-US',
@@ -47,7 +116,6 @@ export default function Chat(){
             }
         )
     }
-
     const getGreeting= () =>{
         const hour = new Date().getHours();
 
@@ -57,23 +125,11 @@ export default function Chat(){
     }
 
     const inputRef = useRef<HTMLInputElement>(null);
-
-    // scrolls down when new messages are sent
-    // const messagesEndRef = useRef<HTMLDivElement>(null);
-    // const scrollToBottom = () => {
-    //     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    // };
-    // useEffect to implement this ^
-    // useEffect(() =>{
-    //     scrollToBottom();
-    // }, [messages]);
-    
     // quickreplies button handlr
     const handleQuickreply = (text:string) =>{
         setInputValue(text);
         inputRef.current?.focus();
     }
-
     // disable scrolling in chatbot when on mobile
     useEffect(() => {
        if (isOpenWebChat) {
@@ -136,7 +192,22 @@ export default function Chat(){
                             </p>
                         </div>
 
-                        
+                        {messages.map((msg,index) => (
+                            <div key={index} className={`${styles.messageWrapper} ${msg.sender === 'bot' ? styles.botWrapper : styles.userWrapper}`}>
+                                {msg.sender === 'bot' && (
+                                        <img src="/public/ACM Orange 6 compressed square.jpg" className={styles.botIconContainer}/> 
+                                )}
+                                <div className={styles.messageGroup}>
+                                    <span className={styles.messageTime}>
+                                        {formatTime(msg.timestamp)}
+                                    </span>
+                                    <div className={`${styles.messageBubble} ${msg.sender === 'bot' ? styles.messagesBot : styles.messagesUser}`}>
+                                        <p>{msg.message}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                        <div ref={messagesEndRef}/>
                         
                     </div>
 
@@ -154,11 +225,12 @@ export default function Chat(){
                             className={styles.chatInput}
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
-
+                            onKeyPress={handleEnterPress}
                         />
                         <button
                             className={styles.sendButton}
-                            
+                            onClick={handleSendClick}
+                            disabled={isButtonDisabled}
                         >
                             <LuSend/>
                         </button>
