@@ -219,11 +219,45 @@ h2, h3, p{
     justify-content: flex-end;
 }
 
+.relevantActions{
+    margin-top: 8px;
+    display: flex;
+    width:100%;
+
+    flex-direction: column;
+}
+
+
+.actionsBubble{
+    background-color: #fff;
+    border: 2px solid #f07800;
+    border-radius: 18px;
+    color: #f07800;
+    padding:12px 14px;
+    width:100%;
+    box-sizing: border-box;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+    gap: 8px;
+    display: flex;
+    line-height: 1;
+    transition: all 0.2s ease-in-out;
+}
+
+.actionsBubble:hover{
+    background-color: #f07800;
+    color:#fff;
+    transform: scale(1.05);
+}
+
 /* loading bubble */
 .loadingBubble{
     background-color: #1f2937;
     padding:14px;
     border-radius: 2px 18px 18px 18px;
+    border: 1px solid #6b788a9a;
+    text-align: center;
 }
 
 .loadingDots{

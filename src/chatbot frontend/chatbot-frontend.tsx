@@ -3,15 +3,19 @@ import styles from "./chatbot.module.css"
 
 import { HiOutlineSparkles,  } from "react-icons/hi";
 import { MdOutlineClose } from "react-icons/md";
-import { LuSend } from "react-icons/lu";
+import { LuSend, LuSquareArrowOutUpRight } from "react-icons/lu";
 
 
 // temporary, seeing how to format msgs (CSS) + scrolling to bottom
-// interface Message{
-//     sender: 'user' | 'bot';
-//     message:string;
-//     timestamp: Date;
-// }
+interface Message{
+    sender: 'user' | 'bot';
+    message:string;
+    timestamp: Date;
+    relavent_actions?: {
+        label: string;
+        href:string;
+    }[];
+}
 
 
 export default function Chat(){
@@ -19,10 +23,17 @@ export default function Chat(){
     const [isOpenWebChat, setOpenWebChat] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
 
-    const [messages, setMessages] = useState([{
+    const [messages, setMessages] = useState<Message[]>([{
         sender: 'bot',
         message: 'Hey, welcome to UHD ACM! What are you looking for today?',
         timestamp: new Date(),
+        // just to show & style since im retrieving nothing 
+        relavent_actions:[
+            {
+                label:"click me",
+                href:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            }
+        ]
     }
     ])
 
@@ -70,6 +81,7 @@ export default function Chat(){
                 sender: 'bot',
                 message: data.response,
                 timestamp: new Date(),
+                relavent_actions: data.relavation_actions,
             }]);
         } catch (error){
             // setMessages(prev =>[...prev,{
@@ -219,6 +231,24 @@ export default function Chat(){
                                     <div className={`${styles.messageBubble} ${msg.sender === 'bot' ? styles.messagesBot : styles.messagesUser}`}>
                                         <p>{msg.message}</p>
                                     </div>
+
+
+                                    {msg.relavent_actions && (
+                                        <div className={styles.relevantActions}>
+                                            {msg.relavent_actions.map((action,index) =>(
+                                                <a 
+                                                    className={styles.actionsBubble}
+                                                    key={index}
+                                                    href={action.href}
+                                                    target="_blank"
+                                                >
+                                                    <LuSquareArrowOutUpRight size={16}/> {action.label}
+                                                </a>
+                                            ))}
+
+                                        </div>
+                                    )}
+
                                 </div>
                             </div>
                         ))}
