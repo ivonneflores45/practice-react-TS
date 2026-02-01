@@ -186,9 +186,10 @@ h2, h3, p{
 
 .messagesBot{
     background-color: #1f2937;
+    border: 1px solid #6b788a9a;
     justify-content: flex-start;
     color:white;
-    border-radius: 4px 18px 18px 18px;
+    border-radius: 2px 18px 18px 18px;
     text-align: left;
     width:fit-content;
     /* max-width: 60%; */
@@ -199,7 +200,7 @@ h2, h3, p{
     text-align: left;
     background-color: #f07800;
     color:white;
-    border-radius: 18px 4px 18px 18px;
+    border-radius: 18px 2px 18px 18px;
     width:fit-content;
     /* max-width: 60%; */
 }
@@ -217,6 +218,43 @@ h2, h3, p{
 .messagesUser .messageTime{
     justify-content: flex-end;
 }
+
+/* loading bubble */
+.loadingBubble{
+    background-color: #1f2937;
+    padding:14px;
+    border-radius: 2px 18px 18px 18px;
+}
+
+.loadingDots{
+    display: flex;
+    gap:4px;
+}
+
+.dot{
+    height: 8px;
+    width: 8px;
+    background-color: #a3acb9;
+    border-radius: 50%;
+    animation: bounce 1s infinite;
+}
+
+.dot:nth-child(2){
+    animation-delay: 0.1s;
+}
+.dot:nth-child(3){
+    animation-delay: .2s;
+}
+
+@keyframes bounce{
+    0%, 100%{
+        transform: scale(0.88);
+    }
+    50%{
+        transform: scale(1);
+    }
+}
+
 
 .inputArea{
     border-top: 1px solid #374151;

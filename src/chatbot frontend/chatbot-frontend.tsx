@@ -50,6 +50,7 @@ export default function Chat(){
             timestamp: new Date(),
         }]);
 
+        setIsLoading(true);
         setInputValue("");
 
         try{
@@ -71,12 +72,26 @@ export default function Chat(){
                 timestamp: new Date(),
             }]);
         } catch (error){
-            setMessages(prev =>[...prev,{
-                sender:'bot',
-                message: "ERROORRRR!!!!",
-                timestamp: new Date(),
-            }])
-        }
+            // setMessages(prev =>[...prev,{
+            //     sender:'bot',
+            //     message: "ERROORRRR!!!!",
+            //     timestamp: new Date(),
+            // }])
+
+            // testing bubble. COMMENT THIS OUT & uncomment the finally block
+            setTimeout(() => {
+                setMessages(prev => [...prev, {
+                    sender: 'bot',
+                    message: "ERRRORRR!!",
+                    timestamp: new Date(),
+                }]);
+                setIsLoading(false);
+            }, 2000)
+
+        } 
+        //     finally {
+        //     setIsLoading(false);
+        // }
     }
 
     const handleSendClick = () =>{
@@ -207,6 +222,22 @@ export default function Chat(){
                                 </div>
                             </div>
                         ))}
+
+                        {isLoading && (
+                            <div className={`${styles.messageWrapper} ${styles.botWrapper}`}>
+                                <img src="/public/ACM Orange 6 compressed square.jpg" className={styles.botIconContainer}/>
+                                <div className={styles.messageGroup}>
+                                    <div className={styles.loadingBubble}>
+                                        <div className={styles.loadingDots}>
+                                            <div className={styles.dot}/>
+                                            <div className={styles.dot}/>
+                                            <div className={styles.dot}/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         <div ref={messagesEndRef}/>
                         
                     </div>
