@@ -2,6 +2,7 @@ import './App.css'
 import BackgroundAnimation from './AnimatedBackground'
 import {motion} from "framer-motion"
 import {useState} from "react"
+import { FeatureCardRow } from './FeatureCards'
 
 function App() {
   const [rotation, setRotation] = useState(0)
@@ -15,12 +16,15 @@ function App() {
     <BackgroundAnimation/>
       <div 
         style={{
-          position:"relative",
+          display:"flex",
+          justifyContent:"center",
           inset:0,
           minHeight:"100vh",
           width:"100%",
           zIndex:1,
         }}>
+
+          <div className="">
             <motion.img
               src="kitty.jpg"
               animate={{ rotate:rotation }}
@@ -28,6 +32,10 @@ function App() {
               transition={{ duration:0.5, ease:"easeInOut" }}
             />
             <h1>woaw.....</h1>
+
+          <FeatureCardRow/>
+          </div>
+            
 
         </div>
     </>
