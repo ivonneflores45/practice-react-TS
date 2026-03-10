@@ -14,20 +14,26 @@ function FeatureCard({icon, color, title, description}: FeatureCardProps){
             hover: "hover:bg-orange-500/10",
             iconBg: "bg-orange-500/15",
             iconClr: "text-orange-400",
+            circleClr: "bg-orange-500/3"
         },
         blue: {
             hover:"hover:bg-blue-500/10",
             iconBg: "bg-blue-500/15",
             iconClr: "text-blue-500",
+            circleClr: "bg-blue-500/3"
         },
     }
     const c = accent[color]
 
     return(
         <div 
-            className={`${c.hover} flex flex-col p-6 rounded-2xl border border-white/10 cursor-pointer backdrop-blur-md bg-zinc-800/30 transition-all duration-500 text-left mb-6`}
+            className={`${c.hover} flex flex-col p-6 rounded-2xl border border-white/10 cursor-pointer backdrop-blur-md bg-zinc-800/30 transition-all duration-500 text-left mb-6 overflow-hidden`}
 
         >
+            {/* top right circle*/}
+            <div className={`absolute top-0 right-0 w-20 h-20 ${c.circleClr} rounded-bl-full`}>
+
+            </div>
 
             <div 
                 className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${c.iconBg} ${c.iconClr}`}
@@ -51,25 +57,25 @@ function FeatureCard({icon, color, title, description}: FeatureCardProps){
 export const cards: FeatureCardProps[] = [
     {
         icon: <LuTarget size={20}/>,
-        color: "blue",
+        color: "orange",
         title: "Skill Development",
         description: "Build technical skills through workshops, hackathons, and hands-on projects",
     },
     {
         icon: <LuCode size={20}/>,
-        color: "orange",
+        color: "blue",
         title: "Real Projects",
         description: "Work on meaningful projects that make a difference and build your portfolio.",
     },
     {
         icon: <LuUsersRound size={20}/>,
-        color: "blue",
+        color: "orange",
         title: "Community",
         description: "Connect with like-minded students and build lasting professional relationships.", 
     },
     {
         icon: <LuHeart size={20}/>,
-        color: "orange",
+        color: "blue",
         title: "Support",
         description: "Get mentorship and guidance from experienced members and industry professionals.",
     }

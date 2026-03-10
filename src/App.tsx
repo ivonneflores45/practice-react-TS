@@ -2,7 +2,7 @@ import './App.css'
 import BackgroundAnimation from './AnimatedBackground'
 import {motion} from "framer-motion"
 import {useState} from "react"
-import { FeatureCardRow } from './FeatureCards'
+import { FeatureCardRow } from './components/FeatureCards'
 
 function App() {
   const [rotation, setRotation] = useState(0)
