@@ -8,12 +8,13 @@ const icons = {
     users: LuUsersRound,
 }
 
-export interface FeatureCardProps{
+export type FeatureCardProps = {
     icon: "heart" | "target" | "code"| "users";
     color: "orange" | "blue" ; // for svg and hover
     title: string;
     description: string;
 }
+
 function FeatureCard({icon, color, title, description}: FeatureCardProps){
 
     const accent = {

@@ -3,6 +3,7 @@ import BackgroundAnimation from './AnimatedBackground'
 import {motion} from "framer-motion"
 import {useState} from "react"
 import { FeatureCardRow } from './components/FeatureCards'
+import { ClubStatsRow } from './components/BannerCard'
 
 function App() {
   const [rotation, setRotation] = useState(0)
@@ -24,7 +25,10 @@ function App() {
           zIndex:1,
         }}>
 
-          <div className="">
+          <div 
+            style={{
+              width:"80rem",
+            }}>
             <motion.img
               src="kitty.jpg"
               animate={{ rotate:rotation }}
@@ -34,6 +38,7 @@ function App() {
             <h1>woaw.....</h1>
 
           <FeatureCardRow/>
+          <ClubStatsRow/>
           </div>
             
 
