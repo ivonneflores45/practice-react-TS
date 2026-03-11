@@ -1,8 +1,15 @@
 import { LuHeart,LuTarget, LuCode, LuUsersRound } from "react-icons/lu";
+import styles from './FeatureCards.module.css'
 
+const icons = {
+    heart: LuHeart,
+    target: LuTarget,
+    code: LuCode,
+    users: LuUsersRound,
+}
 
 export interface FeatureCardProps{
-    icon: React.ReactNode;
+    icon: "heart" | "target" | "code"| "users";
     color: "orange" | "blue" ; // for svg and hover
     title: string;
     description: string;
@@ -11,41 +18,41 @@ function FeatureCard({icon, color, title, description}: FeatureCardProps){
 
     const accent = {
         orange: {
-            hover: "hover:bg-orange-500/10",
-            iconBg: "bg-orange-500/15",
-            iconClr: "text-orange-400",
-            circleClr: "bg-orange-500/3"
+            hover: styles.orangeHover,
+            iconBg: styles.orangeIconBg,
+            iconClr: styles.orangeIconClr,
+            circleClr: styles.orangeCircle
         },
         blue: {
-            hover:"hover:bg-blue-500/10",
-            iconBg: "bg-blue-500/15",
-            iconClr: "text-blue-500",
-            circleClr: "bg-blue-500/3"
+            hover: styles.blueHover,
+            iconBg: styles.blueIconBg,
+            iconClr: styles.blueIconClr,
+            circleClr: styles.blueCircle
         },
     }
     const c = accent[color]
+    const Icon = icons[icon]
 
     return(
         <div 
-            className={`${c.hover} flex flex-col p-6 rounded-2xl border border-white/10 cursor-pointer backdrop-blur-md bg-zinc-800/30 transition-all duration-500 text-left mb-6 overflow-hidden`}
-
+            className={`${c.hover} ${styles.card}`}
         >
             {/* top right circle*/}
-            <div className={`absolute top-0 right-0 w-20 h-20 ${c.circleClr} rounded-bl-full`}>
+            <div className={` ${styles.circle} ${c.circleClr}`}>
 
             </div>
 
             <div 
-                className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${c.iconBg} ${c.iconClr}`}
+                className={` ${styles.iconBox} ${c.iconBg} ${c.iconClr}`}
             >
-                {icon}
+                <Icon size={20}/>
             </div>
 
-            <h1 className="text-white font-semibold text-lg mb-2" >
+            <h1 className={styles.title} >
                 {title}
             </h1>
                 
-            <p className="text-white/65 text-sm  " >
+            <p className={styles.description} >
                 {description}
             </p>
 
@@ -56,25 +63,25 @@ function FeatureCard({icon, color, title, description}: FeatureCardProps){
 
 export const cards: FeatureCardProps[] = [
     {
-        icon: <LuTarget size={20}/>,
+        icon: "target",
         color: "orange",
         title: "Skill Development",
         description: "Build technical skills through workshops, hackathons, and hands-on projects",
     },
     {
-        icon: <LuCode size={20}/>,
+        icon: "code",
         color: "blue",
         title: "Real Projects",
         description: "Work on meaningful projects that make a difference and build your portfolio.",
     },
     {
-        icon: <LuUsersRound size={20}/>,
+        icon: "users",
         color: "orange",
         title: "Community",
         description: "Connect with like-minded students and build lasting professional relationships.", 
     },
     {
-        icon: <LuHeart size={20}/>,
+        icon: "heart",
         color: "blue",
         title: "Support",
         description: "Get mentorship and guidance from experienced members and industry professionals.",
@@ -84,7 +91,7 @@ export const cards: FeatureCardProps[] = [
 
 export function FeatureCardRow(){
     return(
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl">
+    <div className={styles.CardRow}>
         {cards.map((card,index) => (
             <FeatureCard
                 key={index}
