@@ -2,8 +2,9 @@ import './App.css'
 import BackgroundAnimation from './AnimatedBackground'
 import {motion} from "framer-motion"
 import {useState} from "react"
-import { FeatureCardRow } from './components/FeatureCards'
-import { ClubStatsRow } from './components/BannerCard'
+import { FeatureCardRow } from './components/Feature Cards/FeatureCards'
+import { ClubStatsRow } from './components/Stats banner/BannerCard'
+import { FancyButton } from './components/button/Button'
 
 function App() {
   const [rotation, setRotation] = useState(0)
@@ -39,6 +40,7 @@ function App() {
 
           <FeatureCardRow/>
           <ClubStatsRow/>
+          <FancyButton/>
           </div>
             
 
